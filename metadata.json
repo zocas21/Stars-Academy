@@ -1,0 +1,6 @@
+{
+  "name": "Stars Academy",
+  "description": "Premium video-editing and motion design training academy website with School of Motion-style aesthetics, interactive showcase, and built-in AI assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
