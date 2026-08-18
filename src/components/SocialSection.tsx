@@ -17,8 +17,8 @@ export const SocialSection: React.FC = () => {
     },
     {
       name: "YouTube Masterclasses",
-      handle: "@starsacademy",
-      url: "https://youtube.com/@starsacademy",
+      handle: "@mikistar21",
+      url: "https://youtube.com/@mikistar21",
       desc: "Weekly timeline breakdowns, free color grading tutorials, and student project highlights.",
       icon: Youtube,
       color: "from-red-500/20 to-zinc-950",
@@ -27,8 +27,8 @@ export const SocialSection: React.FC = () => {
     },
     {
       name: "TikTok Viral Lab",
-      handle: "@starsacademy_edits",
-      url: "https://tiktok.com",
+      handle: "@mikistar21",
+      url: "https://www.tiktok.com/@mikistar21",
       desc: "Short-form retention breakdowns, kinetic subtitle tricks, and fast editing hacks.",
       icon: Share2,
       color: "from-cyan-500/20 to-zinc-950",
@@ -37,8 +37,8 @@ export const SocialSection: React.FC = () => {
     },
     {
       name: "Instagram Showcase",
-      handle: "@starsacademy",
-      url: "https://instagram.com",
+      handle: "@mikistar21",
+      url: "https://www.instagram.com/mikistar21",
       desc: "Behind-the-scenes studio moments, motion graphics snippets, and graduate highlights.",
       icon: Instagram,
       color: "from-pink-500/20 to-zinc-950",

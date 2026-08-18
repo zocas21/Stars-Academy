@@ -145,3 +145,67 @@ export const Logo: React.FC<LogoProps> = ({
     </div>
   );
 };
+
+export const LogoMark: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }) => {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-label="Stars Academy Icon"
+    >
+      <defs>
+        <linearGradient id="markChromeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="35%" stopColor="#c4c4c8" />
+          <stop offset="70%" stopColor="#8e8e93" />
+          <stop offset="100%" stopColor="#00f0ff" />
+        </linearGradient>
+        <linearGradient id="markArcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#71717a" stopOpacity="0.2" />
+          <stop offset="40%" stopColor="#ffffff" />
+          <stop offset="90%" stopColor="#00f0ff" />
+        </linearGradient>
+      </defs>
+
+      {/* Swooping Arc */}
+      <path
+        d="M 15 65 C 28 20, 72 18, 90 45"
+        stroke="url(#markArcGrad)"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+
+      {/* Stylized 'S' Star Core */}
+      <text
+        x="50"
+        y="62"
+        textAnchor="middle"
+        fill="url(#markChromeGrad)"
+        fontSize="44"
+        fontWeight="900"
+        fontFamily="'Syne', 'Outfit', sans-serif"
+      >
+        S
+      </text>
+
+      {/* Ellipse underline */}
+      <ellipse
+        cx="50"
+        cy="78"
+        rx="36"
+        ry="7"
+        fill="none"
+        stroke="url(#markChromeGrad)"
+        strokeWidth="2.5"
+      />
+
+      {/* Sparkle cross */}
+      <g transform="translate(84, 40) scale(0.5)">
+        <path d="M 0,-10 L 0,10 M -10,0 L 10,0" stroke="#00f0ff" strokeWidth="3" strokeLinecap="round" />
+        <circle cx="0" cy="0" r="2" fill="#ffffff" />
+      </g>
+    </svg>
+  );
+};

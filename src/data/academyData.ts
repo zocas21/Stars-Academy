@@ -191,7 +191,7 @@ export const SHOWCASE_VIDEOS: ShowcaseVideo[] = [
     title: "Stars Academy Official Master Showcase Reel",
     creator: "Stars Academy Mentors & Alumni",
     role: "Official Class of 2025 Featured Reel",
-    thumbnail: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80",
+    thumbnail: "https://img.youtube.com/vi/8n2O1hPe7aQ/maxresdefault.jpg",
     youtubeId: "8n2O1hPe7aQ",
     category: "Motion Design",
     duration: "02:15",
@@ -203,7 +203,8 @@ export const SHOWCASE_VIDEOS: ShowcaseVideo[] = [
     title: "Nike 'Beyond Limits' Spec Commercial",
     creator: "Dawit Kassa (Stars Graduate)",
     role: "Lead Editor & Colorist",
-    thumbnail: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=800&q=80",
+    thumbnail: "https://img.youtube.com/vi/jhGDx2_6tdk/maxresdefault.jpg",
+    youtubeId: "jhGDx2_6tdk",
     category: "Commercial",
     duration: "00:45",
     views: "82K",
@@ -214,7 +215,8 @@ export const SHOWCASE_VIDEOS: ShowcaseVideo[] = [
     title: "Cyberpunk 2099 3D Kinetic Title Sequence",
     creator: "Selamawit Tadesse",
     role: "Motion Designer",
-    thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+    thumbnail: "https://img.youtube.com/vi/ek_nCKTja-I/maxresdefault.jpg",
+    youtubeId: "ek_nCKTja-I",
     category: "Motion Design",
     duration: "00:30",
     views: "44K",
@@ -225,7 +227,8 @@ export const SHOWCASE_VIDEOS: ShowcaseVideo[] = [
     title: "Desert Odyssey 6K Film Grade",
     creator: "Abenezer Bekele",
     role: "Colorist",
-    thumbnail: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80",
+    thumbnail: "https://img.youtube.com/vi/Xoi64U9AgDM/maxresdefault.jpg",
+    youtubeId: "Xoi64U9AgDM",
     category: "Color Grade",
     duration: "01:10",
     views: "67K",
@@ -236,7 +239,8 @@ export const SHOWCASE_VIDEOS: ShowcaseVideo[] = [
     title: "Viral Creator Growth Pack (1.2M Views)",
     creator: "Yonas Mengistu",
     role: "Short-Form Editor",
-    thumbnail: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    thumbnail: "https://img.youtube.com/vi/6XwzJVMqObM/maxresdefault.jpg",
+    youtubeId: "6XwzJVMqObM",
     category: "Short-Form Viral",
     duration: "00:58",
     views: "1.2M",
@@ -246,17 +250,17 @@ export const SHOWCASE_VIDEOS: ShowcaseVideo[] = [
 
 export const INSTRUCTORS: Instructor[] = [
   {
-    id: "yordanos-ayalew",
-    name: "Yordanos Ayalew",
+    id: "michael-moges",
+    name: "Michael Moges",
     title: "Founder & Lead Creative Director",
     specialty: "Cinematic Storytelling, Commercial Editing & After Effects",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+    image: "/founder_michael_moges.jpg",
     credits: ["Lead Commercial Editor", "10+ Years Industry Experience", "50M+ Organic Views Directed"],
     bio: "Passionate filmmaker and master editor dedicated to elevating the next generation of creative storytellers with real-world studio standards.",
     socials: {
       telegram: "https://t.me/starsacadamey21",
-      youtube: "https://youtube.com/@starsacademy",
-      instagram: "https://instagram.com"
+      youtube: "https://youtube.com/@mikistar21",
+      instagram: "https://www.instagram.com/mikistar21"
     }
   },
   {

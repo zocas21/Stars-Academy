@@ -98,11 +98,6 @@ export const WhyUsSection: React.FC = () => {
                     {card.desc}
                   </p>
                 </div>
-
-                <div className="mt-8 pt-6 border-t border-zinc-800/80 flex items-center justify-between text-xs font-bold text-zinc-400 group-hover:text-cyan-300 transition-colors">
-                  <span>Explore in curriculum</span>
-                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </div>
               </motion.div>
             );
           })}

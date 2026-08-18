@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Logo } from "./Logo";
+import { Logo, LogoMark } from "./Logo";
 import { ACADEMY_CONFIG } from "../data/academyData";
-import { Send, Menu, X, ArrowUpRight, Sparkles, Phone } from "lucide-react";
+import { Send, Menu, X, ArrowUpRight, Phone } from "lucide-react";
 import confetti from "canvas-confetti";
 
 interface NavbarProps {
@@ -74,10 +74,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAiChat }) => {
           <button
             onClick={onOpenAiChat}
             id="header-ai-advisor-btn"
-            className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-zinc-300 hover:text-cyan-300 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-cyan-500/40 rounded-full transition-all duration-200"
+            className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-zinc-300 hover:text-cyan-300 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-cyan-500/40 rounded-full transition-all duration-200"
             title="Ask Stars AI Advisor"
           >
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+            <LogoMark className="w-4 h-4" />
             <span>AI Advisor</span>
           </button>
 
@@ -111,10 +111,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAiChat }) => {
         <div className="flex sm:hidden items-center gap-2">
           <button
             onClick={onOpenAiChat}
-            className="p-2 text-cyan-400 bg-zinc-900 border border-zinc-800 rounded-full"
+            className="p-1.5 bg-zinc-900 border border-zinc-800 rounded-full"
             aria-label="Open AI Chat"
           >
-            <Sparkles className="w-4 h-4" />
+            <LogoMark className="w-5 h-5" />
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

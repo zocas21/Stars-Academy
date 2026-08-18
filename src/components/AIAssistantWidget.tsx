@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ACADEMY_CONFIG } from "../data/academyData";
 import { ChatMessage } from "../types";
-import { Sparkles, X, Send, Phone, MessageSquare, Bot, User, CornerDownLeft, RefreshCw } from "lucide-react";
+import { LogoMark } from "./Logo";
+import { X, Send, Phone, User, CornerDownLeft, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 interface AIAssistantWidgetProps {
@@ -63,7 +64,7 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userMessage: messageText,
-          messages: messages.map((m) => ({
+          messages: messages.slice(-6).map((m) => ({
             sender: m.sender,
             text: m.text,
           })),
@@ -116,7 +117,7 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({
           whileTap={{ scale: 0.94 }}
           id="floating-ai-assistant-toggle"
           aria-label="Open Stars AI Assistant"
-          className="relative flex items-center gap-2.5 px-4 py-3 rounded-full bg-zinc-950 text-white border-2 border-cyan-400 shadow-2xl shadow-cyan-500/40 hover:shadow-cyan-500/60 transition-all duration-300 group select-none"
+          className="relative flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-zinc-950 text-white border-2 border-cyan-400 shadow-2xl shadow-cyan-500/40 hover:shadow-cyan-500/60 transition-all duration-300 group select-none"
         >
           {/* Pulsing indicator */}
           <span className="absolute -top-1 -right-1 flex h-3 w-3">
@@ -124,16 +125,16 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({
             <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
           </span>
 
-          <div className="w-7 h-7 rounded-full bg-cyan-400 text-black flex items-center justify-center font-bold">
-            <Sparkles className="w-4 h-4 animate-pulse" />
+          <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center">
+            <LogoMark className="w-5 h-5" />
           </div>
 
           <div className="text-left hidden sm:block pr-1">
             <span className="text-xs font-black uppercase tracking-wider block font-display text-white">
-              Nova AI Advisor
+              Stars AI Advisor
             </span>
             <span className="text-[10px] text-cyan-300 font-medium">
-              Ask about courses & critiques
+              Curriculum & Admissions
             </span>
           </div>
         </motion.button>
@@ -153,15 +154,15 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({
             {/* Chat Header */}
             <div className="p-4 bg-zinc-900/90 border-b border-zinc-800 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="relative w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-black font-bold">
-                  <Bot className="w-5 h-5 text-black" />
+                <div className="relative w-9 h-9 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center">
+                  <LogoMark className="w-6 h-6" />
                   <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-black" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-white flex items-center gap-1.5 font-display">
                     <span>Nova • Stars AI Advisor</span>
                     <span className="text-[10px] font-mono font-normal px-1.5 py-0.5 rounded bg-zinc-800 text-cyan-400">
-                      Gemini 3.7
+                      Active
                     </span>
                   </h3>
                   <p className="text-[11px] text-zinc-400">

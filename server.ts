@@ -36,6 +36,24 @@ Your Goals:
 3. If the user wants to speak to a real person, enroll directly, or asks about custom payment/mentorship, enthusiastically provide the Telegram (@starsacadamey21) and Phone (+251 96 787 6067) contact details.
 4. Keep responses concise, formatted with clear markdown bullet points when helpful, and easy to read.`;
 
+let aiClient: GoogleGenAI | null = null;
+
+function getAiClient(): GoogleGenAI | null {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return null;
+  if (!aiClient) {
+    aiClient = new GoogleGenAI({
+      apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        }
+      }
+    });
+  }
+  return aiClient;
+}
+
 async function startServer() {
   const app = express();
   const PORT = 3000;
@@ -52,28 +70,20 @@ async function startServer() {
     try {
       const { messages, userMessage } = req.body;
 
-      const apiKey = process.env.GEMINI_API_KEY;
-      if (!apiKey) {
-        // Fallback response if API key is not yet set in environment
+      const ai = getAiClient();
+      if (!ai) {
+        // Instant response if API key is not yet set in environment
         return res.json({
           reply: `Welcome to Stars Academy! 🌟 I'm Nova, your AI Creative Advisor. Whether you're mastering Premiere Pro, After Effects, DaVinci Resolve, or CapCut, our mentors are ready to guide you. For direct enrollment or 1-on-1 admissions consultation, message us directly on Telegram at **@starsacadamey21** or call **+251 96 787 6067**!`,
           isFallback: true
         });
       }
 
-      const ai = new GoogleGenAI({
-        apiKey,
-        httpOptions: {
-          headers: {
-            'User-Agent': 'aistudio-build',
-          }
-        }
-      });
-
-      // Format conversation history for Gemini
+      // Format trimmed conversation history for Gemini (last 6 messages max for fast prompt evaluation)
       const formattedContents = [];
       if (Array.isArray(messages) && messages.length > 0) {
-        for (const msg of messages) {
+        const recentMessages = messages.slice(-6);
+        for (const msg of recentMessages) {
           formattedContents.push({
             role: msg.sender === 'user' ? 'user' : 'model',
             parts: [{ text: msg.text }]
@@ -89,12 +99,12 @@ async function startServer() {
       }
 
       const response = await ai.models.generateContent({
-        model: "gemini-3.7-flash",
+        model: "gemini-2.5-flash",
         contents: formattedContents.length > 0 ? formattedContents : [{ role: 'user', parts: [{ text: 'Hello! Tell me about Stars Academy.' }] }],
         config: {
           systemInstruction: STARS_ACADEMY_SYSTEM_INSTRUCTION,
-          temperature: 0.7,
-          topP: 0.95,
+          temperature: 0.6,
+          maxOutputTokens: 600,
         }
       });
 

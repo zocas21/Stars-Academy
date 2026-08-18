@@ -47,7 +47,7 @@ export const InstructorsSection: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-80" />
 
                   <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-zinc-700 text-[10px] font-mono font-bold text-cyan-300 uppercase tracking-wider">
-                    {instructor.id === "yordanos-ayalew" ? "Lead Mentor" : "Senior Faculty"}
+                    {instructor.id === "michael-moges" ? "Lead Mentor" : "Senior Faculty"}
                   </span>
                 </div>
 
@@ -80,7 +80,7 @@ export const InstructorsSection: React.FC = () => {
                 </span>
                 <div className="flex items-center gap-3 text-zinc-400">
                   <a
-                    href={ACADEMY_CONFIG.telegramUrl}
+                    href={instructor.socials?.telegram || ACADEMY_CONFIG.telegramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-sky-400 transition-colors"
@@ -89,7 +89,7 @@ export const InstructorsSection: React.FC = () => {
                     <Send className="w-3.5 h-3.5" />
                   </a>
                   <a
-                    href="https://youtube.com"
+                    href={instructor.socials?.youtube || "https://youtube.com/@mikistar21"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-red-400 transition-colors"
@@ -98,7 +98,7 @@ export const InstructorsSection: React.FC = () => {
                     <Youtube className="w-3.5 h-3.5" />
                   </a>
                   <a
-                    href="https://instagram.com"
+                    href={instructor.socials?.instagram || "https://www.instagram.com/mikistar21"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-pink-400 transition-colors"
