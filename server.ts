@@ -98,23 +98,49 @@ async function startServer() {
         });
       }
 
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: formattedContents.length > 0 ? formattedContents : [{ role: 'user', parts: [{ text: 'Hello! Tell me about Stars Academy.' }] }],
-        config: {
-          systemInstruction: STARS_ACADEMY_SYSTEM_INSTRUCTION,
-          temperature: 0.6,
-          maxOutputTokens: 600,
-        }
-      });
+      let replyText: string | null = null;
+      let lastError: any = null;
+      const candidateModels = ["gemini-3.1-flash-lite", "gemini-3.6-flash", "gemini-3.7-flash"];
 
-      const replyText = response.text || "I am here to help you navigate your journey at Stars Academy! How can I assist you with our video editing and motion design courses today?";
-      return res.json({ reply: replyText });
+      for (const modelName of candidateModels) {
+        try {
+          console.log(`[Gemini] Attempting generation with model ${modelName} for prompt: "${userMessage?.slice(0, 60)}"...`);
+          const response = await ai.models.generateContent({
+            model: modelName,
+            contents: formattedContents.length > 0 ? formattedContents : [{ role: 'user', parts: [{ text: 'Hello! Tell me about Stars Academy.' }] }],
+            config: {
+              systemInstruction: STARS_ACADEMY_SYSTEM_INSTRUCTION,
+              temperature: 0.7,
+            }
+          });
+
+          if (response && response.text) {
+            replyText = response.text;
+            console.log(`[Gemini] Success using model ${modelName}`);
+            break;
+          }
+        } catch (err: any) {
+          lastError = err;
+          console.warn(`[Gemini] Warning: Model ${modelName} returned error:`, err?.message || err);
+        }
+      }
+
+      if (!replyText) {
+        console.error("[Gemini] All candidate models failed. Last error:", lastError);
+        return res.status(500).json({
+          error: "Unable to process chat request.",
+          details: lastError?.message || "Model unavailable",
+          reply: "Our creative line is experiencing temporary network interruption. You can reach our lead admissions team on Telegram at @starsacadamey21 or call +251 96 787 6067."
+        });
+      }
+
+      return res.json({ reply: replyText, modelUsed: "gemini" });
     } catch (error: any) {
-      console.error("Gemini API Error:", error);
+      console.error("[Gemini Endpoint Error]:", error);
       return res.status(500).json({
-        error: "Unable to process chat request.",
-        reply: "Our creative line is experiencing high volume! You can reach our lead admissions team instantly on Telegram at @starsacadamey21 or call +251 96 787 6067."
+        error: "Server encountered an error handling chat request.",
+        details: error?.message || String(error),
+        reply: "Our creative line is experiencing temporary volume. You can reach our lead admissions team on Telegram at @starsacadamey21 or call +251 96 787 6067."
       });
     }
   });

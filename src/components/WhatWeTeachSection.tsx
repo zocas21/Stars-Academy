@@ -4,7 +4,11 @@ import { motion, AnimatePresence } from "motion/react";
 import { BookOpen, CheckCircle, Clock, Sparkles, FolderDown, Film, ArrowUpRight, ChevronRight } from "lucide-react";
 import confetti from "canvas-confetti";
 
-export const WhatWeTeachSection: React.FC = () => {
+interface WhatWeTeachProps {
+  onStartLearning?: () => void;
+}
+
+export const WhatWeTeachSection: React.FC<WhatWeTeachProps> = ({ onStartLearning }) => {
   const [selectedTrackId, setSelectedTrackId] = useState<string>(COURSE_TRACKS[0].id);
 
   const activeTrack = COURSE_TRACKS.find((t) => t.id === selectedTrackId) || COURSE_TRACKS[0];
@@ -16,6 +20,13 @@ export const WhatWeTeachSection: React.FC = () => {
       origin: { y: 0.7 },
       colors: ["#00f0ff", "#ffffff", "#38bdf8", "#ca8a04"]
     });
+  };
+
+  const handleEnrollClick = () => {
+    triggerEnrollConfetti();
+    if (onStartLearning) {
+      onStartLearning();
+    }
   };
 
   return (
@@ -130,16 +141,14 @@ export const WhatWeTeachSection: React.FC = () => {
                 </div>
 
                 <div className="pt-2">
-                  <a
-                    href={ACADEMY_CONFIG.externalPlatformUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={triggerEnrollConfetti}
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 text-xs font-black uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-full transition-all duration-300 shadow-xl shadow-cyan-500/25 active:scale-95 font-display"
+                  <button
+                    type="button"
+                    onClick={handleEnrollClick}
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 text-xs font-black uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-full transition-all duration-300 shadow-xl shadow-cyan-500/25 active:scale-95 font-display cursor-pointer"
                   >
                     <span>Enroll in This Track</span>
                     <ArrowUpRight className="w-4 h-4" />
-                  </a>
+                  </button>
                 </div>
               </div>
 

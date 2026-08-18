@@ -71,8 +71,14 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({
         }),
       });
 
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Gemini /api/chat HTTP error:", res.status, errorData);
+        throw new Error(errorData.details || errorData.error || `HTTP ${res.status}`);
+      }
+
       const data = await res.json();
-      const replyText = data.reply || "Thank you for asking! For immediate custom admission advice, message us on Telegram at @starsacadamey21 or call +251 96 787 6067.";
+      const replyText = data.reply || "I am here to help you navigate your journey at Stars Academy! What questions do you have about our curriculum?";
 
       const isHandoff =
         messageText.toLowerCase().includes("human") ||
@@ -92,12 +98,12 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = ({
       };
 
       setMessages((prev) => [...prev, botMsg]);
-    } catch (err) {
-      console.error("Chat error:", err);
+    } catch (err: any) {
+      console.error("[Stars AI Assistant Error - Request failed]:", err);
       const fallbackMsg: ChatMessage = {
         id: `bot-fallback-${Date.now()}`,
         sender: "bot",
-        text: `I'm currently assisting multiple students! You can reach our lead admissions director directly on Telegram at **@starsacadamey21** or call **+251 96 787 6067** for instant 1-on-1 consultation.`,
+        text: `We encountered a temporary connection issue. You can reach our lead admissions mentors directly on Telegram at **@starsacadamey21** or call **+251 96 787 6067** for instant support.`,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         isHumanHandoff: true,
       };

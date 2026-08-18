@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Logo, LogoMark } from "./Logo";
 import { ACADEMY_CONFIG } from "../data/academyData";
-import { Send, Menu, X, ArrowUpRight, Phone } from "lucide-react";
+import { Send, Menu, X, ArrowUpRight, Phone, UserCheck, LayoutDashboard } from "lucide-react";
 import confetti from "canvas-confetti";
+import { StudentUser } from "../types";
 
 interface NavbarProps {
   onOpenAiChat?: () => void;
+  onStartLearning?: () => void;
+  currentUser?: StudentUser | null;
+  onOpenDashboard?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenAiChat }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onOpenAiChat,
+  onStartLearning,
+  currentUser,
+  onOpenDashboard,
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -25,8 +34,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAiChat }) => {
       particleCount: 50,
       spread: 60,
       origin: { y: 0.1 },
-      colors: ["#00f0ff", "#ffffff", "#38bdf8", "#ca8a04"]
+      colors: ["#00f0ff", "#ffffff", "#38bdf8", "#ca8a04"],
     });
+  };
+
+  const handleStartLearningClick = () => {
+    triggerEnrollConfetti();
+    if (currentUser && onOpenDashboard) {
+      onOpenDashboard();
+    } else if (onStartLearning) {
+      onStartLearning();
+    }
   };
 
   const navLinks = [
@@ -74,7 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAiChat }) => {
           <button
             onClick={onOpenAiChat}
             id="header-ai-advisor-btn"
-            className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-zinc-300 hover:text-cyan-300 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-cyan-500/40 rounded-full transition-all duration-200"
+            className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-zinc-300 hover:text-cyan-300 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 hover:border-cyan-500/40 rounded-full transition-all duration-200 cursor-pointer"
             title="Ask Stars AI Advisor"
           >
             <LogoMark className="w-4 h-4" />
@@ -93,32 +111,39 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAiChat }) => {
             <span className="hidden xl:inline">Telegram</span>
           </a>
 
-          {/* Primary External Course CTA */}
-          <a
-            href={ACADEMY_CONFIG.externalPlatformUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={triggerEnrollConfetti}
+          {/* Primary CTA (Opens Auth Modal or Student Dashboard) */}
+          <button
+            type="button"
+            onClick={handleStartLearningClick}
             id="header-start-learning-btn"
-            className="group relative inline-flex items-center justify-center px-5 py-2 text-xs font-black uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 active:scale-95"
+            className="group relative inline-flex items-center justify-center px-5 py-2 text-xs font-black uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 active:scale-95 cursor-pointer"
           >
-            <span>Start Learning</span>
-            <ArrowUpRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+            {currentUser ? (
+              <>
+                <LayoutDashboard className="w-3.5 h-3.5 mr-1 text-black" />
+                <span>My Portal</span>
+              </>
+            ) : (
+              <>
+                <span>Start Learning</span>
+                <ArrowUpRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </>
+            )}
+          </button>
         </div>
 
         {/* Mobile Hamburger Toggle */}
         <div className="flex sm:hidden items-center gap-2">
           <button
             onClick={onOpenAiChat}
-            className="p-1.5 bg-zinc-900 border border-zinc-800 rounded-full"
+            className="p-1.5 bg-zinc-900 border border-zinc-800 rounded-full cursor-pointer"
             aria-label="Open AI Chat"
           >
             <LogoMark className="w-5 h-5" />
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-zinc-300 hover:text-white bg-zinc-900 border border-zinc-800 rounded-lg focus:outline-none"
+            className="p-2 text-zinc-300 hover:text-white bg-zinc-900 border border-zinc-800 rounded-lg focus:outline-none cursor-pointer"
             aria-label="Toggle mobile menu"
             id="mobile-menu-toggle-btn"
           >
@@ -147,19 +172,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAiChat }) => {
           </div>
 
           <div className="pt-4 border-t border-zinc-800/80 flex flex-col gap-3">
-            <a
-              href={ACADEMY_CONFIG.externalPlatformUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               onClick={() => {
-                triggerEnrollConfetti();
                 setMobileMenuOpen(false);
+                handleStartLearningClick();
               }}
-              className="w-full flex items-center justify-center gap-2 py-3 text-xs font-black uppercase tracking-wider text-black bg-cyan-400 rounded-full font-display"
+              className="w-full flex items-center justify-center gap-2 py-3 text-xs font-black uppercase tracking-wider text-black bg-cyan-400 rounded-full font-display cursor-pointer"
             >
-              <span>Start Learning</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
+              {currentUser ? (
+                <>
+                  <LayoutDashboard className="w-4 h-4" />
+                  <span>My Student Portal</span>
+                </>
+              ) : (
+                <>
+                  <span>Start Learning</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
 
             <div className="grid grid-cols-2 gap-2">
               <a

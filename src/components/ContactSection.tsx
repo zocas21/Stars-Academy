@@ -3,7 +3,11 @@ import { ACADEMY_CONFIG } from "../data/academyData";
 import { Send, Phone, MessageSquare, ArrowUpRight, CheckCircle2, ShieldCheck, Mail, MapPin } from "lucide-react";
 import confetti from "canvas-confetti";
 
-export const ContactSection: React.FC = () => {
+interface ContactSectionProps {
+  onStartLearning?: () => void;
+}
+
+export const ContactSection: React.FC<ContactSectionProps> = ({ onStartLearning }) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -30,6 +34,13 @@ export const ContactSection: React.FC = () => {
       origin: { y: 0.8 },
       colors: ["#00f0ff", "#ffffff", "#38bdf8", "#ca8a04"]
     });
+  };
+
+  const handleStartLearning = () => {
+    triggerEnrollConfetti();
+    if (onStartLearning) {
+      onStartLearning();
+    }
   };
 
   return (
@@ -128,17 +139,15 @@ export const ContactSection: React.FC = () => {
               <p className="text-xs text-zinc-300 leading-relaxed">
                 Instant access to all modules, project footage downloads, software project files, and the Discord community.
               </p>
-              <a
-                href={ACADEMY_CONFIG.externalPlatformUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={triggerEnrollConfetti}
+              <button
+                type="button"
+                onClick={handleStartLearning}
                 id="contact-enroll-direct-btn"
-                className="w-full flex items-center justify-center gap-2 py-4 text-xs font-black uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-full transition-all duration-300 shadow-xl shadow-cyan-500/30 font-display active:scale-95"
+                className="w-full flex items-center justify-center gap-2 py-4 text-xs font-black uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-full transition-all duration-300 shadow-xl shadow-cyan-500/30 font-display active:scale-95 cursor-pointer"
               >
-                <span>Go to Course Platform</span>
+                <span>Start Learning (Register & Pay)</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </a>
+              </button>
             </div>
           </div>
 

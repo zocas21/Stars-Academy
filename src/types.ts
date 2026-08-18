@@ -90,3 +90,27 @@ export interface ChatMessage {
   timestamp: string;
   isHumanHandoff?: boolean;
 }
+
+export type ChannelChoice = "Email" | "WhatsApp" | "Telegram" | "SMS";
+export type SubmissionStatus = "pending" | "approved";
+
+export interface StudentUser {
+  id: string;
+  email: string;
+  fullName: string;
+  avatarUrl?: string;
+  createdAt: string;
+}
+
+export interface Submission {
+  id: string;
+  user_id: string;
+  full_name: string;
+  chosen_channel: ChannelChoice;
+  contact_detail?: string;
+  screenshot_url: string;
+  status: SubmissionStatus;
+  created_at: string;
+  reviewed_at?: string;
+}
+

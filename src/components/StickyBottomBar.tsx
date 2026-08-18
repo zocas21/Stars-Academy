@@ -3,7 +3,11 @@ import { ACADEMY_CONFIG } from "../data/academyData";
 import { ArrowUpRight, ShieldCheck, Sparkles, Send } from "lucide-react";
 import confetti from "canvas-confetti";
 
-export const StickyBottomBar: React.FC = () => {
+interface StickyBottomBarProps {
+  onStartLearning?: () => void;
+}
+
+export const StickyBottomBar: React.FC<StickyBottomBarProps> = ({ onStartLearning }) => {
   const triggerConfetti = () => {
     confetti({
       particleCount: 50,
@@ -11,6 +15,13 @@ export const StickyBottomBar: React.FC = () => {
       origin: { y: 0.9 },
       colors: ["#00f0ff", "#ffffff", "#38bdf8", "#ca8a04"]
     });
+  };
+
+  const handleStartLearningClick = () => {
+    triggerConfetti();
+    if (onStartLearning) {
+      onStartLearning();
+    }
   };
 
   return (
@@ -54,17 +65,15 @@ export const StickyBottomBar: React.FC = () => {
             <span>Telegram</span>
           </a>
 
-          <a
-            href={ACADEMY_CONFIG.externalPlatformUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={triggerConfetti}
+          <button
+            type="button"
+            onClick={handleStartLearningClick}
             id="sticky-bar-start-learning-btn"
-            className="group inline-flex items-center justify-center px-5 sm:px-6 py-2 text-xs font-black uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-full transition-all duration-300 shadow-lg shadow-cyan-500/25 active:scale-95 whitespace-nowrap"
+            className="group inline-flex items-center justify-center px-5 sm:px-6 py-2 text-xs font-black uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-full transition-all duration-300 shadow-lg shadow-cyan-500/25 active:scale-95 whitespace-nowrap cursor-pointer"
           >
             <span>Start Learning</span>
             <ArrowUpRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+          </button>
         </div>
       </div>
     </aside>

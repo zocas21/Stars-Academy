@@ -3,7 +3,11 @@ import { Logo } from "./Logo";
 import { ACADEMY_CONFIG } from "../data/academyData";
 import { Send, Phone, ArrowUp, ShieldCheck } from "lucide-react";
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onStartLearning?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onStartLearning }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -67,14 +71,13 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="pt-2">
-                <a
-                  href={ACADEMY_CONFIG.externalPlatformUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-4 py-2 rounded-full bg-zinc-900 border border-zinc-800 text-cyan-300 hover:text-white hover:border-cyan-500 text-xs font-bold transition-all"
+                <button
+                  type="button"
+                  onClick={onStartLearning}
+                  className="inline-block px-4 py-2 rounded-full bg-zinc-900 border border-zinc-800 text-cyan-300 hover:text-white hover:border-cyan-500 text-xs font-bold transition-all cursor-pointer"
                 >
-                  Course Platform Portal →
-                </a>
+                  Student Portal & Payment Verification →
+                </button>
               </div>
             </div>
           </div>

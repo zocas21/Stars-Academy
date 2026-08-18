@@ -8,9 +8,14 @@ import confetti from "canvas-confetti";
 interface HeroSectionProps {
   onWatchReel: () => void;
   onOpenAiChat: () => void;
+  onStartLearning?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onWatchReel, onOpenAiChat }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({
+  onWatchReel,
+  onOpenAiChat,
+  onStartLearning,
+}) => {
   const triggerConfetti = () => {
     confetti({
       particleCount: 60,
@@ -18,6 +23,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onWatchReel, onOpenAiC
       origin: { y: 0.6 },
       colors: ["#00f0ff", "#ffffff", "#38bdf8", "#ca8a04"]
     });
+  };
+
+  const handleStartLearning = () => {
+    triggerConfetti();
+    if (onStartLearning) {
+      onStartLearning();
+    }
   };
 
   const headlineWords = ["BECOME", "THE", "EDITOR", "EVERY", "STUDIO", "WANTS"];
@@ -115,17 +127,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onWatchReel, onOpenAiC
           className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 w-full sm:w-auto"
         >
           {/* Primary CTA */}
-          <a
-            href={ACADEMY_CONFIG.externalPlatformUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={triggerConfetti}
+          <button
+            type="button"
+            onClick={handleStartLearning}
             id="hero-cta-start-learning"
-            className="w-full sm:w-auto group relative inline-flex items-center justify-center px-8 py-4 text-sm sm:text-base font-black uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/40 hover:-translate-y-0.5 active:translate-y-0"
+            className="w-full sm:w-auto group relative inline-flex items-center justify-center px-8 py-4 text-sm sm:text-base font-black uppercase tracking-wider text-black bg-cyan-400 hover:bg-cyan-300 rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
             <span>Start Learning</span>
             <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-          </a>
+          </button>
 
           {/* Secondary CTA: Watch Reel */}
           <button
